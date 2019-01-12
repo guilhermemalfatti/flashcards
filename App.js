@@ -7,6 +7,7 @@ import { createAppContainer, createStackNavigator, createBottomTabNavigator } fr
 import Decks from './components/decks'
 import NewDeck from './components/newDeck'
 import Deck from './components/deck'
+import Quiz from './components/quiz'
 import { purple, white, blue } from './utils/colors'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CustomStatusBar from './components/statusBar'
@@ -62,11 +63,11 @@ const mainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
   },
-  deck: {
-    screen: Deck,
-    navigationOptions: {
-      headerTitle: titleAndIcon,
-    }
+  Deck: {
+    screen: Deck
+  },
+  Quiz: {
+    screen: Quiz
   }
 });
 
