@@ -1,18 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { createStore, compose } from 'redux';
 import reducer from './reducers'
 import { Provider } from 'react-redux';
-import { createAppContainer, createStackNavigator,createBottomTabNavigator } from 'react-navigation'
+import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 import Decks from './components/decks'
 import NewDeck from './components/newDeck'
 import Deck from './components/deck'
 import { purple, white, blue } from './utils/colors'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import CustomStatusBar from './components/statusBar'
+import * as css from "./utils/styles";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(reducer, composeEnhancers())
+
+const titleAndIcon =
+        <View style={css.header.container}>
+          <MaterialCommunityIcons size={30} name="cards" color={css.colors.text_light}/>
+          <Text style={css.header.text}>Flash cards</Text>
+        </View>;
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -31,7 +39,8 @@ const Tabs = createBottomTabNavigator({
   }
 }, {
     navigationOptions: {
-      header: null
+      headerTitle: titleAndIcon,
+      ...css.header,
     },
     tabBarOptions: {
       activeTintColor: Platform.OS === 'ios' ? purple : blue,
@@ -56,10 +65,7 @@ const mainNavigator = createStackNavigator({
   deck: {
     screen: Deck,
     navigationOptions: {
-      headerTintColor: blue,
-      headerStyle: {
-        backgroundColor: purple,
-      }
+      headerTitle: titleAndIcon,
     }
   }
 });
@@ -73,17 +79,11 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <View style={css.home_screen.container}>
+          <CustomStatusBar backgroundColor={purple} barStyle="light-content" />
           <AppContianer />
         </View>
       </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red'
-  },
-});

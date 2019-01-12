@@ -1,26 +1,34 @@
 import { AsyncStorage } from 'react-native'
-import { formatCalendarResults, CALENDAR_STORAGE_KEY } from './_calendar'
-
+import  dummyData  from '../config/dummyData';
 export const DECKS_STORAGE_KEY = 'Udacity:decks'
 
-export function getDecks(){
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then(formatCalendarResults)
+export async function fetchDecks() {
+  console.log('call fetchDecks');
+  let data = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+  if (!data) {
+    console.log('dummy data: ');
+    setDummydata(dummyData);
+    return JSON.stringify(dummyData);
+  } else {
+    console.log('data: ');
+    return data;
+  }
+
 }
-export function getDeck(deckId){
+export function fetchDeck(deckId) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((decks)=>{
-      functionFilterDeck(decks, deckId);
+    .then((decks) => {
+      filterDeck(decks, deckId);
     })
 }
-export function saveDeckTitle(title){
+export function saveDeckTitle(title) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [title]: {
       title: title
     }
   }))
 }
-export function addCardToDeck(title, card){
+export function addCardToDeck(title, card) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
@@ -29,6 +37,10 @@ export function addCardToDeck(title, card){
     })
 }
 
-function functionFilterDeck(decks, deckId){
+function filterDeck(decks, deckId) {
   decks.filter((item) => item.id === deckId)
+}
+
+function setDummydata(data) {
+  return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data));
 }
