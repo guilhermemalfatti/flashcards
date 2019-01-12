@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 export const colors = {
   "secondary": '#0686E4',
@@ -76,9 +76,9 @@ export const home_screen_list = StyleSheet.create(
 export const home_screen = StyleSheet.create(
   {
     container: {
-        flex: 1,
-        backgroundColor: '#fff'
-      },
+      flex: 1,
+      backgroundColor: '#fff'
+    },
     v_container: {
       flex: 1,
       padding: 8,
@@ -106,6 +106,43 @@ export const settings_screen = StyleSheet.create(
     },
   }
 );
+
+export const deck = {
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+
+  },
+  containerRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ontainerDesc: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15
+  },
+  containerBtn: {
+    flex: 1,
+  },
+  text: {
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 7,
+    margin: 6 //TODO, add only border bottom
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 19,
+    borderRadius: 10,
+    width: 300,
+    margin: 2
+  }
+};
 
 // more info https://goo.gl/dqw4jF
 export const header = {
