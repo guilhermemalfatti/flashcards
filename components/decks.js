@@ -12,7 +12,7 @@ class Decks extends Component {
 
         fetchDecks().then((data) => {
             //console.log(JSON.parse(data)[0].id)
-            this.setState(() => ({ list: JSON.parse(data) }))
+            this.setState(() => ({ list: data }))
         });
 
     }

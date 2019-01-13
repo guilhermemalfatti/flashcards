@@ -8,10 +8,11 @@ export async function fetchDecks() {
   if (!data) {
     console.log('dummy data: ');
     setDummydata(dummyData);
-    return JSON.stringify(dummyData);
+    return dummyData;
   } else {
-    console.log('data: ');
-    return data;
+    //console.log('data: ',dummyData[0].questions[0].question);
+
+    return JSON.parse(data);
   }
 
 }
