@@ -35,34 +35,38 @@ export default class Deck extends Component {
     render() {
         let { title, questions } = this.state;
         let { navigation } = this.props;
+        let disabled = questions && questions.length > 0;
+
         return (
             <View style={css.deck.container}>
                 <View style={css.deck.containerRow}>
                     <View style={css.deck.containerDesc}>
                         <View style={{ alignItems: 'center' }}>
                             <Text style={[css.deck.text, { fontSize: 20 }, { fontWeight: "bold" }]}>{title}</Text>
-                            <Text style={[css.deck.text, { color: css.colors.text_medium }]}>{_.size(questions)}</Text>
+                            <Text style={[css.deck.text, { color: css.colors.text_medium }]}>{_.size(questions)} questions</Text>
                         </View>
                     </View>
                 </View>
                 <View style={css.deck.containerRow}>
                     <View style={css.deck.containerBtnk}>
                         <TouchableOpacity style={[css.deck.button]} onPress={() => navigation.navigate(
-                            'Quiz',
+                            'todo',
                             {
-                                questions: this.state.questions
+                                questions: questions
                             }
                         )}>
                             <Text>Add card</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={css.deck.button} onPress={() => navigation.navigate(
+                        {disabled &&
+                        <TouchableOpacity  style={css.deck.button} onPress={() => navigation.navigate(
                             'Quiz',
                             {
-                                questions: this.state.questions
+                                questions: questions
                             }
                         )}>
                             <Text>Start Quiz</Text>
                         </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </View>

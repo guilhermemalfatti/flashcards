@@ -11,7 +11,6 @@ export async function fetchDecks() {
     return dummyData;
   } else {
     //console.log('data: ',dummyData[0].questions[0].question);
-
     return JSON.parse(data);
   }
 

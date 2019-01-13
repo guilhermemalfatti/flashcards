@@ -43,6 +43,10 @@ export default class Quiz extends Component {
 
     showAnswer = () => {
         this.setState(() => ({ isAnswer: true }));
+    }
+
+    showQuestion = () => {
+        this.setState(() => ({ isAnswer: false }));
         this.animate();
     }
 
@@ -70,7 +74,13 @@ export default class Quiz extends Component {
         if (isDone) {
             return (
                 <View>
-                    <Text>Your score is: {score}</Text>
+                    <Text>Your score is: {score} of {questions.length}</Text>
+                    <TouchableOpacity style={[css.deck.button]} onPress={() => navigation.goBack()}>
+                            <Text>Back to the deck</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={css.deck.button} onPress={() => navigation.goBack()}>
+                            <Text>Restart Quiz</Text>
+                        </TouchableOpacity>
                 </View>
             )
         }
@@ -84,7 +94,7 @@ export default class Quiz extends Component {
                         <Text>
                             {questions && questions[questionIndex].answer}
                         </Text>
-                        <Text>
+                        <Text onPress={() => this.showQuestion()}>
                             Question
                         </Text>
                     </Animated.View >
@@ -95,7 +105,6 @@ export default class Quiz extends Component {
                         <TouchableOpacity style={css.deck.button} onPress={() => this.incorrectAnswer()}>
                             <Text>Incorrect</Text>
                         </TouchableOpacity>
-                        <Text>{JSON.stringify(this.state)}</Text>
                     </View>
                 </View>
             )
@@ -118,6 +127,9 @@ export default class Quiz extends Component {
 
         return (
             <Animated.View style={quizStyle} >
+                <Text>
+                {questionIndex + 1} of {questions && questions.length}
+                </Text>
                 <Text>
                     {questions && questions[questionIndex].question}
                 </Text>
