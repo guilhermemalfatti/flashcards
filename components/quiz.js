@@ -73,14 +73,18 @@ export default class Quiz extends Component {
 
         if (isDone) {
             return (
-                <View>
-                    <Text>Your score is: {score} of {questions.length}</Text>
-                    <TouchableOpacity style={[css.deck.button]} onPress={() => navigation.goBack()}>
+                <View style={css.quiz.containerBtn}>
+                    <View style={css.quiz.container}>
+                        <Text>Your score is: {score} of {questions.length}</Text>
+                    </View>
+                    <View style={[{ alignSelf: 'center' }, { marginBottom: 10 }]}>
+                        <TouchableOpacity style={[css.deck.button]} onPress={() => navigation.goBack()}>
                             <Text>Back to the deck</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={css.deck.button} onPress={() => navigation.goBack()}>
                             <Text>Restart Quiz</Text>
                         </TouchableOpacity>
+                    </View>
                 </View>
             )
         }
@@ -88,21 +92,20 @@ export default class Quiz extends Component {
 
         if (isAnswer) {
             return (
-                <View>
-                    <Animated.View onPress={() => { this.animate() }}
-                        style={[{ transform: [{ scale: bounceValue }] }]}>
-                        <Text>
+                <View style={css.quiz.containerBtn}>
+                    <View onPress={() => { this.animate() }} style={css.quiz.container}>
+                        <Text style={css.quiz.text}>
                             {questions && questions[questionIndex].answer}
                         </Text>
-                        <Text onPress={() => this.showQuestion()}>
+                        <Text style={css.quiz.textQuestion} onPress={() => this.showQuestion()}>
                             Question
                         </Text>
-                    </Animated.View >
-                    <View>
-                        <TouchableOpacity style={[css.deck.button]} onPress={() => this.correctAnswer()}>
+                    </View >
+                    <View style={[{ alignSelf: 'center' }, { marginBottom: 10 }]}>
+                        <TouchableOpacity style={[css.quiz.button, { backgroundColor: 'green' }]} onPress={() => this.correctAnswer()}>
                             <Text>Correct</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={css.deck.button} onPress={() => this.incorrectAnswer()}>
+                        <TouchableOpacity style={[{ backgroundColor: 'red' }, css.quiz.button]} onPress={() => this.incorrectAnswer()}>
                             <Text>Incorrect</Text>
                         </TouchableOpacity>
                     </View>
@@ -126,25 +129,21 @@ export default class Quiz extends Component {
         };
 
         return (
-            <Animated.View style={quizStyle} >
-                <Text>
-                {questionIndex + 1} of {questions && questions.length}
-                </Text>
-                <Text>
-                    {questions && questions[questionIndex].question}
-                </Text>
-                <TouchableOpacity onPress={() => console.log(2)}>
-                    <Text onPress={() => { this.showAnswer() }}>Answer</Text>
-                </TouchableOpacity>
+            <Animated.View style={[quizStyle]} >
+                <View style={css.quiz.container}>
+                    <Text>
+                        {questionIndex + 1} of {questions && questions.length}
+                    </Text>
+                    <Text style={css.quiz.text}>
+                        {questions && questions[questionIndex].question}
+                    </Text>
+                </View>
+                <View style={css.quiz.containerAnswer}>
+                    <TouchableOpacity onPress={() => console.log(2)}>
+                        <Text style={css.quiz.textAnswer} onPress={() => { this.showAnswer() }}>Answer</Text>
+                    </TouchableOpacity>
+                </View>
             </Animated.View >
         )
     }
 }
-
-
-
-const styles = StyleSheet.create({
-    direction: {
-        textAlign: 'center',
-    }
-})

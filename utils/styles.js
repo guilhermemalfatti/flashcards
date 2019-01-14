@@ -164,3 +164,39 @@ export const header = {
   }
 
 };
+
+export const quiz = StyleSheet.create({
+  container: {
+      alignItems: 'center',
+      marginTop: 54,
+  },
+  text: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      marginTop: 14,
+      textAlign: 'center'
+  },
+  containerAnswer: {
+      marginTop: 14,
+      alignItems: 'center'
+  },
+  textAnswer: {
+      color: 'blue'
+  },
+  textQuestion: {
+      marginTop: 14,
+      color: 'red'
+  },
+  containerBtn: {
+      flex: 1,
+      justifyContent: 'space-between'
+  },
+  button: {
+      alignItems: 'center',
+      padding: 19,
+      borderRadius: 10,
+      width: 300,
+      margin: 2
+  }
+})
+
