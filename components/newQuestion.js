@@ -5,6 +5,7 @@ import * as css from "../utils/styles";
 import { addCardToDeck } from '../utils/api'
 import _ from 'lodash'
 import { receiveDecks } from '../actions'
+import DropdownAlert from 'react-native-dropdownalert';
 
 const titleAndIcon = () =>
     (<View style={css.header.container}>
@@ -31,14 +32,25 @@ class NewQuestions extends Component {
     onSubmit = () => {
         let { dispatch } = this.props;
         let { question, answer } = this.state;
-        const { id } = this.props.navigation.state.params;
+        const { id, title } = this.props.navigation.state.params;
 
-        addCardToDeck(id, { question, answer }).then((data) => {
-            dispatch(receiveDecks(data));
-            console.log('card add success.')
-        }).catch((err) => {
-            console.log('Erro on save the deck: ', err)
-        });
+        if(question === '' || answer === ''){
+            this.dropdown.alertWithType('info', 'Attention', 'Fill the inputs');
+        }else{
+            addCardToDeck(id, { question, answer }).then((data) => {
+                dispatch(receiveDecks(data));
+
+                this.dropdown.alertWithType('success', 'Success', 'Question added on deck ' + title);
+
+                this.setState(() => ({
+                    question: '',
+                    answer: ''
+                }));
+
+            }).catch((err) => {
+                console.log('Erro on save the deck: ', err)
+            });
+        }
     }
 
 
@@ -71,6 +83,7 @@ class NewQuestions extends Component {
                         <Text>Submit</Text>
                     </TouchableOpacity>
                 </View>
+                <DropdownAlert ref={ref => this.dropdown = ref} />
             </View>
         )
     }

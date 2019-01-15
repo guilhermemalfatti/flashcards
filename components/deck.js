@@ -65,7 +65,8 @@ class Deck extends Component {
                         <TouchableOpacity style={[css.deck.button]} onPress={() => navigation.navigate(
                             'NewQuestions',
                             {
-                                id: id
+                                id: id,
+                                title: deck[0] && deck[0].title
                             }
                         )}>
                             <Text>Add card</Text>
