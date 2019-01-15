@@ -68,8 +68,8 @@ export default class Quiz extends Component {
     }
 
     render() {
-        const { status, coords, direction, navigation } = this.props
-        const { bounceValue, isAnswer, questionIndex, questions, isDone, score } = this.state;
+        const { navigation } = this.props
+        const { isAnswer, questionIndex, questions, isDone, score } = this.state;
 
         if (isDone) {
             return (

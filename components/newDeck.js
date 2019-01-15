@@ -32,9 +32,6 @@ class NewDeck extends Component {
     }
 
     render() {
-        const { status, coords, direction, navigation } = this.props
-
-
         return (
             <View style={[css.quiz.containerBtn, { padding: 20 }, { alignItems: 'center' }]}>
                 <View>

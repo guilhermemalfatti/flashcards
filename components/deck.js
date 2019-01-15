@@ -50,7 +50,7 @@ export default class Deck extends Component {
                 <View style={css.deck.containerRow}>
                     <View style={css.deck.containerBtnk}>
                         <TouchableOpacity style={[css.deck.button]} onPress={() => navigation.navigate(
-                            'todo',
+                            'NewQuestions',
                             {
                                 questions: questions
                             }

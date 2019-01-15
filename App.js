@@ -8,6 +8,7 @@ import Decks from './components/decks'
 import NewDeck from './components/newDeck'
 import Deck from './components/deck'
 import Quiz from './components/quiz'
+import NewQuestions from './components/newQuestion'
 import { purple, white, blue } from './utils/colors'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CustomStatusBar from './components/statusBar'
@@ -68,6 +69,9 @@ const mainNavigator = createStackNavigator({
   },
   Quiz: {
     screen: Quiz
+  },
+  NewQuestions: {
+    screen: NewQuestions
   }
 });
 
