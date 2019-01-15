@@ -24,6 +24,7 @@ export function fetchDeck(deckId) {
       filterDeck(decks, deckId);
     })
 }
+
 export async function saveDeckTitle(title) {
   let data = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
   let id = uuidv4();
@@ -39,15 +40,29 @@ export async function saveDeckTitle(title) {
 
   AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
 
-  return {id: id, list: data};
+  return { id: id, list: data };
 }
-export function addCardToDeck(title, card) {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((results) => {
-      const data = JSON.parse(results)
-      data[title].questions.push(card)
-      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
-    })
+export async function addCardToDeck(id, card) {
+  console.log('addCardToDeck call id: . ', id);
+  let data
+
+  let decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
+  data = JSON.parse(decks)
+
+  data.map((item) => {
+    if (item.id === id) {
+      item.questions.push(card)
+    }
+  })
+
+  await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
+
+  return data;
+
+
+
+
+
 }
 
 function filterDeck(decks, deckId) {
