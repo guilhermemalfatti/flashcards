@@ -1,6 +1,6 @@
 import { RECEIVE_DECKS, ADD_DECK, REMOVE_DECK, ADD_CARD } from '../actions'
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = {decks: []};
 
 
 export default function decks(state = INITIAL_STATE, action) {
@@ -8,7 +8,7 @@ export default function decks(state = INITIAL_STATE, action) {
     case RECEIVE_DECKS:
       return {
         ...state,
-        ...action.decks,
+        decks: action.decks,
       }
     case ADD_DECK:
       return {

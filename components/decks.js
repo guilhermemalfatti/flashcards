@@ -1,21 +1,25 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Animated } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import * as css from "../utils/styles";
 import { fetchDecks } from '../utils/api'
 import _ from 'lodash'
+import { receiveDecks } from '../actions'
 
 class Decks extends Component {
     state = { list: [] };
 
     componentDidMount() {
+        const { dispatch } = this.props;
 
         fetchDecks().then((data) => {
             //console.log(JSON.parse(data)[0].id)
-            this.setState(() => ({ list: data }))
+            this.setState(() => ({ list: data }));
+            dispatch(receiveDecks(data));
         });
 
     }
+
 
     _renderItem = ({ item }) => {
         let actualRowComponent =
@@ -38,11 +42,13 @@ class Decks extends Component {
     }
 
     render() {
+        const { decks } = this.props;
+
         return (
             <View style={css.home_screen.v_container}>
                 <FlatList
                     style={css.home_screen_list.container}
-                    data={this.state.list}
+                    data={decks}
                     renderItem={this._renderItem}
                     keyExtractor={(item, index) => index.toString()}
                 />

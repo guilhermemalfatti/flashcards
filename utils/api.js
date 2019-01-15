@@ -1,16 +1,19 @@
 import { AsyncStorage } from 'react-native'
-import  dummyData  from '../config/dummyData';
+import dummyData from '../config/dummyData';
+
 export const DECKS_STORAGE_KEY = 'Udacity:decks'
+const uuidv4 = require('uuid/v4');
+
 
 export async function fetchDecks() {
   console.log('call fetchDecks');
   let data = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+
   if (!data) {
-    console.log('dummy data: ');
     setDummydata(dummyData);
     return dummyData;
   } else {
-    //console.log('data: ',dummyData[0].questions[0].question);
+    //setDummydata(dummyData);
     return JSON.parse(data);
   }
 
@@ -21,12 +24,22 @@ export function fetchDeck(deckId) {
       filterDeck(decks, deckId);
     })
 }
-export function saveDeckTitle(title) {
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [title]: {
-      title: title
-    }
-  }))
+export async function saveDeckTitle(title) {
+  let data = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+  let id = uuidv4();
+
+  let newDeck = {
+    title: title,
+    id: id,
+    questions: []
+  };
+
+  data = JSON.parse(data)
+  data.push(newDeck)
+
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
+
+  return {id: id, list: data};
 }
 export function addCardToDeck(title, card) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
