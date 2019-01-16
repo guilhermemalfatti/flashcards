@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, Animated, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Animated, Share, TouchableOpacity } from 'react-native'
 import * as css from "../utils/styles";
+import { clearLocalNotification } from '../utils/helpers'
 
 const titleAndIcon = (title) =>
     (<View style={css.header.container}>
@@ -26,12 +27,23 @@ export default class Quiz extends Component {
         bounceValue: new Animated.Value(0),
     }
 
+    onShare() {
+        Share.share({
+          message: 'My score was ' + this.state.score ,
+          url: 'https://www.udacity.com/',
+          title: 'Flash cards app'
+        }, {
+          dialogTitle: 'Share FlashCards results'
+        })
+      }
+
     componentDidMount() {
         const { questions } = this.props.navigation.state.params;
 
         this.setState(() => ({ questions: questions }));
 
         this.animate();
+        clearLocalNotification();
     }
 
     animate = () => {
@@ -83,6 +95,9 @@ export default class Quiz extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={css.deck.button} onPress={() => navigation.goBack()}>
                             <Text>Restart Quiz</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={css.deck.button} onPress={() => this.onShare()}>
+                            <Text>Share results</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

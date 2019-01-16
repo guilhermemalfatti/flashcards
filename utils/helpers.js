@@ -1,21 +1,72 @@
 import React from 'react'
 import { View, StyleSheet, AsyncStorage } from 'react-native'
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { red, orange, blue, lightPurp, pink, white } from './colors'
 import { Notifications, Permissions } from 'expo'
 
-const NOTIFICATION_KEY = 'UdaciFitness:notifications'
+const NOTIFICATION_KEY = 'FlashCards:notifications'
+
+export function clearLocalNotification() {
+  console.log('clear local notifications.');
+  try {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+      .then(Notifications.cancelAllScheduledNotificationAsync)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
-const styles = StyleSheet.create({
-  iconContainer: {
-    padding: 5,
-    borderRadius: 8,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 20
-  },
-})
+function createNotification() {
+  return {
+    title: 'Do the Quiz!',
+    body: "👋 don't forget to do the quiz!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true,
+    }
+  }
+}
 
+export function setLocalNotification() {
+
+  try {
+    AsyncStorage.getItem(NOTIFICATION_KEY)
+      .then(JSON.parse)
+      .then((data) => {
+        if (data === null) {
+          Permissions.askAsync(Permissions.NOTIFICATIONS)
+            .then(({ status }) => {
+              if (status === 'granted') {
+                console.log('set local notification.');
+                try {
+                  Notifications.cancelAllScheduledNotificationsAsync()
+                } catch (error) {
+                  console.log(error)
+                }
+
+                let date = new Date()
+                date.setDate(date.getDate())
+                date.setHours(23)
+                date.setMinutes(40)
+
+                Notifications.scheduleLocalNotificationAsync(
+                  createNotification(),
+                  {
+                    time: date,
+                    repeat: 'day',
+                  }
+                )
+
+                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+              }
+            })
+        }
+      })
+  } catch (error) {
+    console.log(error)
+  }
+}

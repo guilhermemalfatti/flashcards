@@ -13,16 +13,17 @@ import { purple, white, blue } from './utils/colors'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CustomStatusBar from './components/statusBar'
 import * as css from "./utils/styles";
+import { setLocalNotification } from './utils/helpers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(reducer, composeEnhancers())
 
 const titleAndIcon =
-        <View style={css.header.container}>
-          <MaterialCommunityIcons size={30} name="cards" color={css.colors.text_light}/>
-          <Text style={css.header.text}>Flash cards</Text>
-        </View>;
+  <View style={css.header.container}>
+    <MaterialCommunityIcons size={30} name="cards" color={css.colors.text_light} />
+    <Text style={css.header.text}>Flash cards</Text>
+  </View>;
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -79,7 +80,9 @@ const AppContianer = createAppContainer(mainNavigator);
 
 export default class App extends React.Component {
 
-
+  componentDidMount() {
+    setLocalNotification()
+  }
 
   render() {
     return (
