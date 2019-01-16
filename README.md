@@ -60,7 +60,6 @@ Your app should now be running on the emulator.
 
 For more information about using Node.js and React-native, see these Dev Center articles:
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
 - [React-native](https://facebook.github.io/react-native)
 - [react-redux](https://redux.js.org/basics/usagewithreact)
 
