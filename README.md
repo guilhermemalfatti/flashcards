@@ -1,4 +1,9 @@
-### Flash cards
+| Main view  | Deck view | Answer view | Score view |
+| ------------- | ------------- | ------------- | ------------- |
+| <img width="200" height="330" src="https://github.com/guilhermemalfatti/flashcards/blob/master/images/main.PNG">  | <img width="200" height="330" src="https://github.com/guilhermemalfatti/flashcards/blob/master/images/deck.PNG">  | <img width="200" height="330" src="https://github.com/guilhermemalfatti/flashcards/blob/master/images/answer.PNG">  | <img width="200" height="330" src="https://github.com/guilhermemalfatti/flashcards/blob/master/images/score.PNG">  |
+
+
+## Flash cards
 
 ## Guilherme Malfatti - Udacity
 
@@ -31,7 +36,7 @@ This project builds a mobile application (Android or iOS) that allows users to s
 
 Make sure you have [Node.js](http://nodejs.org/) and [Git](https://git-scm.com/) installed.
 
-# Android Simulator
+### Android Simulator
 In order to install the android simulator, follow the [user guide](https://developer.android.com/studio/intro/?hl=pt-br).
 
 You have a choice of either using the Android Studio Emulator or [Genymotion as your simulator](https://www.genymotion.com/). Do not need to install both.
