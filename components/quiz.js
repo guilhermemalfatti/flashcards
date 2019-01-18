@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Animated, Share, TouchableOpacity } from 'react-native'
+import { View, Text, Animated, Share, TouchableOpacity, StyleSheet } from 'react-native'
 import * as css from "../utils/styles";
 import { clearLocalNotification } from '../utils/helpers'
 
@@ -29,13 +29,13 @@ export default class Quiz extends Component {
 
     onShare() {
         Share.share({
-          message: 'My score was ' + this.state.score ,
-          url: 'https://www.udacity.com/',
-          title: 'Flash cards app'
+            message: 'My score was ' + this.state.score,
+            url: 'https://www.udacity.com/',
+            title: 'Flash cards app'
         }, {
-          dialogTitle: 'Share FlashCards results'
-        })
-      }
+                dialogTitle: 'Share FlashCards results'
+            })
+    }
 
     componentDidMount() {
         const { questions } = this.props.navigation.state.params;
@@ -116,7 +116,7 @@ export default class Quiz extends Component {
                             Question
                         </Text>
                     </View >
-                    <View style={[{ alignSelf: 'center' }, { marginBottom: 10 }]}>
+                    <View style={style.container}>
                         <TouchableOpacity style={[css.quiz.button, { backgroundColor: 'green' }]} onPress={() => this.correctAnswer()}>
                             <Text>Correct</Text>
                         </TouchableOpacity>
@@ -162,3 +162,12 @@ export default class Quiz extends Component {
         )
     }
 }
+
+
+
+const style = StyleSheet.create({
+    container: {
+        alignSelf: 'center',
+        marginBottom: 10
+    }
+  })
